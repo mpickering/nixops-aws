@@ -272,7 +272,8 @@ class EC2State(MachineState, nixopsaws.resources.ec2_common.EC2CommonState):
 
     def address_to(self, m):
         if isinstance(m, EC2State): # FIXME: only if we're in the same region
-            return m.private_ipv4
+            if self.region == m.region:
+                return m.private_ipv4
         return MachineState.address_to(self, m)
 
 
